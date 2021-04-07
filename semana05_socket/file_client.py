@@ -11,12 +11,13 @@ port = int(sys.argv[2])
 sock.connect((host, port))
 
 f = open(str(sys.argv[3]),'wb')
-l = sock.recv(1024)
+l = sock.recv(44032)
 try:    
     while (l):
         print ("Receiving File...")
         f.write(l)
-        l = sock.recv(1024)        
+        l = sock.recv(44032)
+        
 finally:    
     f.close()
     print('Successfully')

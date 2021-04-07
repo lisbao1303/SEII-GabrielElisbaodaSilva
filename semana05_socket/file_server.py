@@ -6,8 +6,9 @@ if len(sys.argv) != 3:
     exit()
 
 port = int(sys.argv[1])
-sock = socket.socket(sock.AF_INET, socket.SOCK_STREAM)
+sock = socket.socket()
 host = socket.gethostname()
+print(host)
 sock.bind((host, port))
 sock.listen(1)
 
@@ -20,11 +21,11 @@ while True:
     try:       
         filename = str(sys.argv[2])
         f = open(filename, "rb")
-        l = f.read(1024)
+        l = f.read(44032)
         while (l):            
             connection.send(l)
             print('Sending ')
-            l = f.read(1024)
+            l = f.read(44032)
             f.close()
             print('Done sending')
             break
