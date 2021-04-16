@@ -1,7 +1,7 @@
 import socket
 import sys
 import select
-from threading import Thread
+import threading
 
 if len(sys.argv) != 3:
 	print ("missing arguments -> correct usage: chat_server IP_address port_number")
@@ -16,15 +16,6 @@ server.bind((IP_address, port_number))
 server.listen(333)
 
 list_of_clients = []
-
-while True:
-	conn, addr = server.accept()
-	list_of_clients.append(conn)
-	print (addr[0] + " connected")
-	start_new_thread(clientthread,(conn,addr))	
-
-conn.close()
-server.close()
 
 def clientthread(conn, addr):
 	conn.send("Welcome to this chatroom!")
@@ -52,3 +43,11 @@ def remove(connection):
 	if connection in list_of_clients:
 		list_of_clients.remove(connection)
 
+while True:
+	conn, addr = server.accept()
+	list_of_clients.append(conn)
+	print (addr[0] + " connected")
+	threading.Thread(target=clientthread(conn,addr)).start()	
+
+conn.close()
+server.close()

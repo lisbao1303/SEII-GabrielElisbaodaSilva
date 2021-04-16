@@ -3,7 +3,7 @@ import sys
 import select
 
 if len(sys.argv) != 3:
-	print ("missing arguments -> correct usage: script, IP address, port number")
+	print ("missing arguments -> correct usage: chat_client IP_address port_number")
 	exit()
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
